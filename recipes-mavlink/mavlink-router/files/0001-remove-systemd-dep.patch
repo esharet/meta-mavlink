@@ -1,0 +1,37 @@
+commit 5223fb04a52742a1cb38bda0e7976dea8ae8a178
+Author: esharet <esharet@gmail.com>
+Date:   Sun Feb 13 12:06:17 2022 +0200
+
+    remove systemd dependency from meson.build
+
+diff --git a/meson.build b/meson.build
+index ac09e07..15003bb 100644
+--- a/meson.build
++++ b/meson.build
+@@ -27,12 +27,6 @@ dep_math = cxx.find_library('m')
+ dep_rt = cxx.find_library('rt')
+ dep_thread = dependency('threads')
+ 
+-# Optional dependencies
+-systemd_system_unit_dir = get_option('systemdsystemunitdir')
+-if systemd_system_unit_dir == 'auto'
+-		dep_systemd = dependency('systemd')
+-		systemd_system_unit_dir = dep_systemd.get_pkgconfig_variable('systemdsystemunitdir')
+-endif
+ 
+ dep_gtest = dependency('gtest', main : true, required : false)
+ 
+@@ -127,13 +121,6 @@ version_h = vcs_tag(input : 'src/version.h.in',
+ mavlink_inc = include_directories('modules/mavlink_c_library_v2/ardupilotmega')
+ src_inc = include_directories('src')
+ 
+-# Additonal data to be installed
+-configure_file(
+-        input: 'mavlink-router.service.in',
+-        output: 'mavlink-router.service',
+-        configuration: conf,
+-        install_dir: systemd_system_unit_dir,
+-)
+ 
+ subdir('src')
+ subdir('examples')
