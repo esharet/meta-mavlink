@@ -1,0 +1,1 @@
+PREFERRED_VERSION_python-pymavlink = "2.4.20"
